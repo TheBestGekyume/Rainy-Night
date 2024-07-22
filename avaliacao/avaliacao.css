@@ -7,7 +7,7 @@ body{
     /* background-image:linear-gradient(to bottom, #1D2225, #1D2225, #33383C); */
     font-family: 'Lato', sans-serif !important;
     text-align: center;
-    
+    margin: 0;
 }
 
 header{
