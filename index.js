@@ -1,5 +1,10 @@
-let modal = document.getElementById('modal');
+const modal = document.getElementById('modal');
+const imgModal = document.getElementById('img-modal');
+const usuarioInput = document.getElementById('usuario');
 
+imgModal.addEventListener("click", function(){
+  usuarioInput.focus();
+})
 
 function abrirModal(){
   modal.style.display = 'flex';
