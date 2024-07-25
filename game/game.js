@@ -1,16 +1,15 @@
 let cont = 0;
 let legenda = document.getElementById('legenda');
 let img = document.getElementById('img2');
-let divEscolhas = document.getElementById('escolhas');
+ let divEscolhas = document.getElementById('escolhas');
 let divAlt = document.getElementById("divAlt"); //div que será manipulada (divAlteração)
 let textoAlt = document.getElementById("divTexto");
 const chuva = document.getElementById("rain-audio");
 const musica = document.getElementById("caixa-audio");
 
-chuva.volume = 0.1;
-chuva.muted = false; // a chuva é "desmutada" no javascript para que "chuva.volume = 0.1" carregue junto com audio
+chuva.volume = 0.1; // a chuva é "desmutada" no javascript para que "chuva.volume = 0.1" carregue junto com audio
 
-divEscolhas.style.opacity = 0;
+// divEscolhas.style.opacity = 0;
 
 function delay(func, time) {
     setTimeout(func, time);
@@ -188,7 +187,7 @@ function escolher(option) {
             divAlt.classList.remove('divAlt2');
             divAlt.classList.add('divAlt3');
 
-            // textoAlt.textContent = 'CHAMADA RECEBIDA\nANJO DA MORTE'
+            textoAlt.textContent = 'CHAMADA RECEBIDA\nANJO DA MORTE'
 
             divAlt.innerHTML = '<audio autoplay hidden> ' +
                 '<source src="../audio/receber-ligacao.mp3" type="audio/mp3"></audio>' +
@@ -427,22 +426,39 @@ function escolher(option) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const volumeOn = document.getElementById("volumeOn");
-    const volumeOff = document.getElementById("volumeOff");
+const iconeVolume = document.getElementById("volume");
 
-    volumeOn.style.display = "inline-block";
-    volumeOff.style.display = "none";
+iconeVolume.addEventListener("click", function(){
 
-    volumeOn.addEventListener("click", function () {
+    if(iconeVolume.textContent === "volume_up"){
+        iconeVolume.innerText = "volume_off";
         chuva.muted = true;
-        volumeOn.style.display = "none";
-        volumeOff.style.display = "inline-block";
-    });
-
-    volumeOff.addEventListener("click", function () {
+    }else{
+        iconeVolume.innerText = "volume_up";
         chuva.muted = false;
-        volumeOn.style.display = "inline-block";
-        volumeOff.style.display = "none";
-    });
-});
+    }
+
+})
+
+// document.addEventListener("DOMContentLoaded", function () {
+    
+//     const volumeOn = document.getElementById("volumeOn");
+//     const volumeOff = document.getElementById("volumeOff");
+    
+//     volumeOn.style.display = "none";
+//     volumeOff.style.display = "inline-block";
+
+    
+// });
+
+// volumeOn.addEventListener("click", function () {
+//     chuva.muted = true;
+//     volumeOn.style.display = "none";
+//     volumeOff.style.display = "inline-block";
+// });
+
+// volumeOff.addEventListener("click", function () {
+//     chuva.muted = false;
+//     volumeOn.style.display = "inline-block";
+//     volumeOff.style.display = "none";
+// });
