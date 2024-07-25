@@ -2,14 +2,12 @@ body {
     height: 100%;
     color: #fff;
     background-image: linear-gradient(to bottom, #442e73, #171223);
-    /* background-image:linear-gradient(to bottom, #1D2225, #1D2225, #33383C); */
     font-family: 'Lato', sans-serif !important;
 }
 
 header {
     height: 400px;
     width: auto;
-    /* background-color: #261e38; */
     transition-duration: 3s;
     transition-delay: 4s;
     transition-timing-function: ease-out;
@@ -60,6 +58,7 @@ section#primeiro div h2 {
 }
 
 section#primeiro div h3 {
+    margin-block: 25px;
     animation: piscar 0.5s steps(3) infinite;
     font-size: 1.2em;
     font-family: 'VT323', monospace;
@@ -80,7 +79,6 @@ section#primeiro div h3 {
 
 
 section#primeiro div img {
-    /* position: absolute; */
     max-width: 100vw;
     max-height: 100vh;
     cursor: pointer;
@@ -92,24 +90,19 @@ div#divImg{
     display: grid;
     justify-items: center;
     /* align-items: center; */
-    margin-top: 25px;
 }
 
 footer {
     display: block;
-    height: 150px;
     width: 100%;
     background-image: linear-gradient(to left, #191327, #151020);
-    padding-top: 60px;
-    margin-top: 20px;
+    padding-block: 50px;
     text-align: center;
-    position: static;
 }
 
 footer a,
 footer p {
     display: block;
-    margin: auto;
     padding: 10px;
 }
 
