@@ -55,16 +55,17 @@ button:hover{
     color: #9500ff;
 }
 
-@keyframes digitação{
-    from { width: 0; }
-    to { width: 100%; }
-}
+/* @keyframes digitação{
+    from { max-width: 0; }
+    to { max-width: 100vw; }
+} */
 
 .digitando{
     overflow: hidden;
-    white-space: pre;
+    /* white-space:pre-line; */
     /* border-right: 5px solid white; */
-    animation: digitação 3s steps(45) 1;
+    animation: digitação 3s steps(45) 1 forwards;
+    max-width: 100%;
 }
 
 .opac{
@@ -87,8 +88,8 @@ button:hover{
     /* opacity: unset; */
     background-color: #5902aa;
     box-shadow: 0 0 4px 4px #5902aa;
-    top: 115px; 
-    left: 560px;
+    top: 155px; 
+    left: 380px;
 }
 
 .divAlt1 p{
@@ -101,19 +102,18 @@ button:hover{
     text-align: left;
     background-color: #aa0202;
     box-shadow: 0 0 4px 4px #aa0202;
-    top: 105px; 
-    left: 466px;
+    top: 155px; 
+    left: 290px;
     
 }
 
 .divAlt3{
     display: block !important;
-    /* opacity: unset; */
     text-align: center;
     background-color: #5902aa;
     box-shadow: 0 0 4px 4px #5902aa;
-    top: 80px; 
-    left: 560px;
+    top: 130px; 
+    left: 380px;
 }
 
 .divAlt3 img{
@@ -157,9 +157,18 @@ div#escolhas{
     transition: opacity 1s 0.5s;
 }
 
-div #legenda{
+div #legenda{  
+    /* max-width:60vw; */
+    /* white-space: nowrap; */
+    color: #b86dff;
     margin-top: 20px;
-    text-align: start;
+    text-align: center;
+    /* overflow: hidden; Certifica-se de esconder o texto que ainda não apareceu */
+}
+
+div#teste{
+    max-width:60vw ;
+    max-height: 0px;
 }
 
 .audio-container {
