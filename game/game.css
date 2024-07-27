@@ -127,10 +127,10 @@ button:hover{
 .divAlt4{
     display: block;
     text-align: center;
-    background-color: transparent !important;
+    background-color: transparent;
     /* box-shadow: 0 0 50px 20px #aa0202; */
-    top: 100px; 
-    left: 485px;
+    top: 150px; 
+    left: 224px;
     padding: 10px;
     font-size: 4em;
     border-radius: 20px;
@@ -145,13 +145,13 @@ div#escolhas{
     width: 100vw;
     opacity: 0;
     margin-left: 100px;
-    transition: opacity 1s; 
+    transition: opacity 750ms; 
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 50px;
-    
 }
+
 
 #divAlt{
     transition: opacity 1s 0.5s;
