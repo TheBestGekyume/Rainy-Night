@@ -11,11 +11,7 @@ chuva.volume = 0.1; // a chuva é "desmutada" no javascript para que "chuva.volu
 
 // divEscolhas.style.opacity = 0;
 
-
-
-
-
-function exibirLegenda(text, delay, callback) {
+function exibirLegenda(text, delay) {
     let i = 0;
 
     function exibirCaracteres() {
@@ -23,43 +19,35 @@ function exibirLegenda(text, delay, callback) {
             legenda.innerHTML += text.charAt(i);
             i++;
             setTimeout(exibirCaracteres, delay);
-        } else if (callback) {
-            callback();
+        } else {
+            exibirDivEscolhas(); // Exibe a divEscolhas após a legenda ser completamente exibida
         }
     }
 
     exibirCaracteres();
 }
 
-function novaLegenda(text, delay, callback) {
+function novaLegenda(text, delay) {
+    divEscolhas.style.display = "none";
+    divEscolhas.style.opacity = 0;
     legenda.innerHTML = ''; // Limpa o texto anterior
-    exibirLegenda(text, delay, callback);
-}
-
-
-function delay(func, time) {
-    setTimeout(func, time);
+    exibirLegenda(text, delay);
 }
 
 function exibirDivAlt() {
     divAlt.style.display = "flex";
     divAlt.style.opacity = 1;
+
 }
 
 function exibirDivEscolhas() {
-    divEscolhas.style.opacity = 1;
+    setTimeout(function() {
+        divEscolhas.style.display = "flex";
+        setTimeout(function() {
+            divEscolhas.style.opacity = 1;
+        }, 50);
+    }, 100); 
 }
-
-// function efeitoDigit() {
-//     legenda.classList.remove('digitando');
-//     void legenda.offsetWidth;
-//     legenda.classList.add('digitando');
-// }
-
-// function receberMsg() {
-//     legenda.textContent = 'Quem é esse? [Você recebeu uma mensagem de um desconhecido]';
-//     efeitoDigit();
-// }
 
 function imagemOpac(n) {
 
@@ -75,33 +63,40 @@ function imagemOpac(n) {
     img.style.opacity = n;
 }
 
-// function novaLegenda(str) {
-//     legenda.textContent = str;
-//     efeitoDigit();
-// }
-
 function transicao() {
     divAlt.style.opacity = 0;
     imagemOpac(0);
 }
 
+function continuar() {
+
+    novaLegenda("Quem é esse? [Você recebeu uma mensagem de um desconhecido]", 40);
+    divEscolhas.innerHTML = `
+        <button onclick="escolher(1)">Ver Mensagem</button>
+        <button onclick="escolher(2)">Ignorar Mensagem</button>
+    `;
+};
+
+function fimDeJogo(){
+    divAlt.style.opacity = 1;
+    divAlt.classList.remove('divAlt1');
+    divAlt.classList.remove('divAlt2');
+    divAlt.classList.remove('divAlt3');
+    divAlt.classList.add('divAlt4');
+    divAlt.innerHTML = '<h2>FIM DE JOGO</h2>'
+    divEscolhas.innerHTML = '<a href="game.html"> <button>Jogar Novamente</button> </a>' +
+            '<a href="../avaliacao/avaliacao.html"><button>Avaliar o Jogo</button></a>' +
+            '<a href="../index.html"><button>Home Page</button></a>';
+}
+
 
 imagemOpac();
-delay(exibirDivAlt, 4000);
-delay(exibirDivEscolhas, 6500);
-novaLegenda("Uma noite chuvosa lá fora, eu dentro do apartamento, mais um dia comum.", 40, function() {
-    setTimeout(function() {
-        novaLegenda("Quem é esse? [Você recebeu uma mensagem de um desconhecido]", 40);
-    }, 2500);
-});
-
-// document.addEventListener("load", delay(exibirDivAlt, 7000));  
-// document.addEventListener("load", delay(receberMsg, 7500));
-// document.addEventListener("load", delay(exibirDivEscolhas, 10500));
+setTimeout(exibirDivAlt, 4500);
+novaLegenda("Uma noite chuvosa lá fora, eu dentro do apartamento, mais um dia comum.", 45);
 
 function ramificacao(opc) {
 
-    transicao();
+    transicao(); //ESSA PORRA DE TRANSICAAAAAAOOOOOOO!!!!!! AAAAAAAAAAAAAAAA
 
     switch (opc) {
         case 1: //PEGAR PACOTE
@@ -148,7 +143,7 @@ function ramificacao(opc) {
         case 5: //RECUSAR LIGAÇÃO
 
             novaLegenda('É melhor não atender uma chamada de um desconhecido.', 40);
-            ramificacao(2);
+            divEscolhas.innerHTML = '<button onclick="ramificacao(2)">Continuar</button>';
             break;
 
         case 6: //NÃO PEGAR PACOTE
@@ -168,6 +163,7 @@ function ramificacao(opc) {
 
         case 8: // MORTE PELA ABERTURA DA CAIXA (FIM DE JOGO)
 
+            imagemOpac(0);
             divAlt.style.opacity = 1;
             divAlt.classList.remove('divAlt1');
             divAlt.classList.remove('divAlt2');
@@ -181,7 +177,60 @@ function ramificacao(opc) {
                 '<a href="game.html"> <button>Jogar Novamente</button> </a>' +
                 '<a href="../avaliacao/avaliacao.html"><button>Avaliar o Jogo</button></a>';
             break;
+
+        case 9: //RECEBER CAIXA E IR DORMIR
+        novaLegenda('Enfim, já está tarde, amanhã eu preciso acordar cedo para trabalhar.', 40);
+        divEscolhas.innerHTML = '<button onclick="ramificacao(10)">Continuar</button>';
+        break;
+
+        case 10: //ACORDAR 1/2
+            chuva.muted = true;
+            novaLegenda('[Você acorda e tudo parece perfeitamente normal]', 40);
+            divEscolhas.innerHTML = '<button onclick="ramificacao(11)">Continuar</button>';
+            break;
+            
+        case 11: //ACORDAR 2/2
+            imagemOpac(1);
+            img.src = '../img/manha.png';
+            novaLegenda('[Você olha pra caixa e se pergunta novamente se deveria abri-la]', 40);
+            divEscolhas.innerHTML = '<button onclick="ramificacao(12)">Abrir</button>' + 
+            '<button onclick="ramificacao(13)">Ir Trabalhar</button>';
+            break;
+
+        case 12: //ABRIR A CAIXA DE MANHÃ (FIM DE JOGO)
+            fimDeJogo();
+            novaLegenda('[A Caixa está vazia e você se sente muito desconfortável após saber disso] Como isso estava tão pesado?', 45);
+            break;
+
+        case 13: //TRABALHAR SEM ABRIR A CAIXA (FIM DE JOGO)
+            fimDeJogo();
+            novaLegenda('Isso não importa agora, melhor eu ir andando para não me atrasar.', 40);
+            break;
+
+        case 14: //ESPERAR A CHUVA PASSAR COM A CAIXA
+            imagemOpac(0);
+            novaLegenda('A chuva passou, e agora?', 40);
+            chuva.volume = 0;
+            divEscolhas.innerHTML = '<button onclick="ramificacao(16)">Abrir</button>' + 
+            '<button onclick="ramificacao(15)">Não Abrir</button>';
+            break;
+
+        case 15: //ESPEROU A CHUVA PASSAR E NÃO ABRIU A CAIXA (FIM DE JOGO)
+            fimDeJogo();
+            img.src = '../img/manha.png';
+            novaLegenda('Isso já passou dos limites, eu preciso dormir o resto da noite e ir trabalhar.', 40);
+            break;
+
+        case 16://ABRIR A CAIXA DE MANHÃ (FIM DE JOGO)
+            imagemOpac(1)
+            fimDeJogo();
+            novaLegenda('[A Caixa está vazia e você se sente muito desconfortável após saber disso] Como isso estava tão pesado?', 40);
+            break;
+            
+
     }
+
+    
 }
 
 
@@ -264,7 +313,7 @@ function escolher(option) {
             break;
 
 
-        case 7: //CONTINUAÇÃO DO 3
+        case 7: //CONTINUAÇÃO DO RAMIFICACAO(4)
             img.src = '../img/black-box-zoom.png';
             imagemOpac(1);
             divAlt.classList.remove('divAlt1');
@@ -305,7 +354,7 @@ function escolher(option) {
             break;
 
 
-        case 10: //ABRIR CAIXA (FIM DE JOGO)
+        case 10: //ABRIR CAIXA E MORRER (FIM DE JOGO)
 
             transicao();
             novaLegenda('Eu não ouço ninguém chorando, vou abrir isso e talvez eu chame a polícia depois.', 40);
@@ -325,9 +374,14 @@ function escolher(option) {
 
             break;
 
-        case 12:
+        case 12: 
 
+            novaLegenda('Já está tarde, mas eu realmente queria saber o que tem aí dentro.', 40);
+            divAlt.style.opacity = 0;
+            divEscolhas.innerHTML =  '<button onclick="ramificacao(9)">Ir Dormir</button>' + 
+            '<button onclick="ramificacao(14)">Esperar a Chuva Passar</button>';
             break;
+            
 
         case 14: // NÃO PEGAR O PACOTE
 
@@ -352,7 +406,7 @@ function escolher(option) {
             break;
 
 
-        case 16: // IR DORMIR OU SE MOVER(FIM DE JOGO)
+        case 16: // IR DORMIR OU SE MOVER (FIM DE JOGO)
 
             transicao();
             divAlt.innerHTML = '<audio autoplay hidden> ' +
@@ -426,7 +480,7 @@ function escolher(option) {
             divAlt.innerHTML = '<audio autoplay hidden> ' +
                 '<source src="../audio/abrir-porta.mp3" type="audio/mp3"></audio>'
 
-            novaLegenda('[Você está na mesma posição a cerca de três horas, quase não há luz no apartamento e a porta do apartamento se abriu]', 40);
+            novaLegenda('[Você está na mesma posição a cerca de três horas, quase não há luz no apartamento e a porta se abriu]', 40);
 
             divEscolhas.innerHTML = '<button onclick="escolher(22);">Continuar Imóvel</button>' +
                 '<button onclick="escolher(18)">Se Mover</button>';
@@ -436,24 +490,18 @@ function escolher(option) {
         case 22:
 
             chuva.volume = 0;
-            divAlt.classList.remove('divAlt1');
-            divAlt.classList.remove('divAlt2');
-            divAlt.classList.remove('divAlt3');
-            divAlt.classList.add('divAlt4');
+            fimDeJogo();
             img.src = '../img/4&15.png';
             imagemOpac(1);
-
             divAlt.style.opacity = 1;
-
-            novaLegenda('[Agora são 4:15 da manhã, a chuva parou, a luz voltou, tudo parece normal]', 40)
-
-            divAlt.innerHTML = '<h2>FIM DE JOGO</h2>'
-
+            novaLegenda('[Agora são 4:15 da manhã, a chuva parou, a luz voltou, tudo parece normal]', 40);
             divEscolhas.innerHTML = '<a href="game.html"> <button>Jogar Novamente</button> </a>' +
                 '<a href="../avaliacao/avaliacao.html"><button>Avaliar o Jogo</button></a>';
 
     }
 }
+
+
 
 const iconeVolume = document.getElementById("volume");
 
@@ -468,26 +516,3 @@ iconeVolume.addEventListener("click", function(){
     }
 
 })
-
-// document.addEventListener("DOMContentLoaded", function () {
-    
-//     const volumeOn = document.getElementById("volumeOn");
-//     const volumeOff = document.getElementById("volumeOff");
-    
-//     volumeOn.style.display = "none";
-//     volumeOff.style.display = "inline-block";
-
-    
-// });
-
-// volumeOn.addEventListener("click", function () {
-//     chuva.muted = true;
-//     volumeOn.style.display = "none";
-//     volumeOff.style.display = "inline-block";
-// });
-
-// volumeOff.addEventListener("click", function () {
-//     chuva.muted = false;
-//     volumeOn.style.display = "inline-block";
-//     volumeOff.style.display = "none";
-// });
