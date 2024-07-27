@@ -9,7 +9,6 @@ const musica = document.getElementById("caixa-audio");
 
 chuva.volume = 0.1; // a chuva é "desmutada" no javascript para que "chuva.volume = 0.1" carregue junto com audio
 
-// divEscolhas.style.opacity = 0;
 
 function exibirLegenda(text, delay) {
     let i = 0;
@@ -77,26 +76,37 @@ function continuar() {
     `;
 };
 
+
+function estiloDivAlt(n){
+    divAlt.className = ''; //remove todos os estilos
+    
+    if(n && n !== 0){
+        divAlt.classList.add(`divAlt${n}`);
+    }
+}
+
 function fimDeJogo(){
     divAlt.style.opacity = 1;
-    divAlt.classList.remove('divAlt1');
-    divAlt.classList.remove('divAlt2');
-    divAlt.classList.remove('divAlt3');
-    divAlt.classList.add('divAlt4');
+    estiloDivAlt(4);
     divAlt.innerHTML = '<h2>FIM DE JOGO</h2>'
     divEscolhas.innerHTML = '<a href="game.html"> <button>Jogar Novamente</button> </a>' +
             '<a href="../avaliacao/avaliacao.html"><button>Avaliar o Jogo</button></a>' +
             '<a href="../index.html"><button>Home Page</button></a>';
 }
 
-
 imagemOpac();
-setTimeout(exibirDivAlt, 4500);
+
+setTimeout(
+    function(){
+        exibirDivAlt();
+        document.getElementById('img1').style.opacity = 0;
+        document.getElementById('img1').style.display = "none";
+    }, 4500);
 novaLegenda("Uma noite chuvosa lá fora, eu dentro do apartamento, mais um dia comum.", 45);
 
 function ramificacao(opc) {
 
-    transicao(); //ESSA PORRA DE TRANSICAAAAAAOOOOOOO!!!!!! AAAAAAAAAAAAAAAA
+    transicao();
 
     switch (opc) {
         case 1: //PEGAR PACOTE
@@ -106,8 +116,13 @@ function ramificacao(opc) {
             break;
 
         case 2: //ATENDER OU NÃO A PORTA
+            
+            divAlt.style.display = "none"
             divAlt.innerHTML = '<audio autoplay hidden> ' +
                 '<source src="../audio/campainha.mp3" type="audio/mp3"></audio>';
+
+            setTimeout(function(){divAlt.style.display = "block"}, 1000)
+            
 
             novaLegenda('[01:00 Hora e a campainha toca]', 40);
 
@@ -165,11 +180,7 @@ function ramificacao(opc) {
 
             imagemOpac(0);
             divAlt.style.opacity = 1;
-            divAlt.classList.remove('divAlt1');
-            divAlt.classList.remove('divAlt2');
-            divAlt.classList.remove('divAlt3');
-            divAlt.classList.add('divAlt4');
-            divAlt.innerHTML = '<h2>FIM DE JOGO</h2>'
+            fimDeJogo()
 
             novaLegenda('[Você sente cada osso do seu corpo se quebrando e a vida se esvai de seu corpo]', 40);
             divEscolhas.innerHTML = '<audio autoplay hidden> ' +
@@ -227,26 +238,17 @@ function ramificacao(opc) {
             novaLegenda('[A Caixa está vazia e você se sente muito desconfortável após saber disso] Como isso estava tão pesado?', 40);
             break;
             
-
     }
-
-    
 }
 
-
 function escolher(option) {
-
-    document.getElementById('img1').style.opacity = 0;
 
     switch (option) {
         case 1: //VER MENSAGEM
 
             novaLegenda('[Você abre a mensagem e lê]', 40);
 
-            divAlt.classList.remove('divAlt1');
-            divAlt.classList.remove('divAlt3');
-
-            divAlt.classList.add('divAlt2');
+            estiloDivAlt(2);
 
             divAlt.style.opacity = 1;
 
@@ -262,10 +264,9 @@ function escolher(option) {
 
             novaLegenda('Que estranho, será que eu deveria atender?', 40);
 
-            divAlt.classList.remove('divAlt2');
-            divAlt.classList.add('divAlt3');
+            estiloDivAlt(3);
 
-            textoAlt.textContent = 'CHAMADA RECEBIDA\nANJO DA MORTE'
+            // textoAlt.textContent = 'CHAMADA RECEBIDA\nANJO DA MORTE'
 
             divAlt.innerHTML = '<audio autoplay hidden> ' +
                 '<source src="../audio/receber-ligacao.mp3" type="audio/mp3"></audio>' +
@@ -284,7 +285,6 @@ function escolher(option) {
             break;
 
         case 4: //BLOQUEAR E NÃO PEGAR
-
             cont = 1;
             ramificacao(2);
             break;
@@ -293,8 +293,7 @@ function escolher(option) {
 
             novaLegenda('[Você ouve ruídos estranhos] Alo? Será que eu deveria ler a mensagem?', 40);
 
-            divAlt.classList.remove('divAlt2');
-            divAlt.classList.add('divAlt3');
+            estiloDivAlt(3);
 
             divAlt.innerHTML = '<audio autoplay hidden> ' +
                 '<source src="../audio/ruidos.mp3" type="audio/mp3"></audio>' +
@@ -316,9 +315,7 @@ function escolher(option) {
         case 7: //CONTINUAÇÃO DO RAMIFICACAO(4)
             img.src = '../img/black-box-zoom.png';
             imagemOpac(1);
-            divAlt.classList.remove('divAlt1');
-            divAlt.classList.remove('divAlt3');
-            divAlt.classList.add('divAlt2');
+            estiloDivAlt(2);
             novaLegenda('Que p@@ra é essa?', 40);
 
             divEscolhas.innerHTML = '<button onclick="escolher(9)">Continuar</button>';
@@ -328,10 +325,9 @@ function escolher(option) {
 
             novaLegenda('[Você abre a mensagem e lê]', 40);
 
-            divAlt.classList.remove('divAlt3');
-            divAlt.classList.add('divAlt2');
+            estiloDivAlt(2)
 
-            divAlt.style.opacity = 1;
+            // divAlt.style.opacity = 1;
 
             divAlt.innerHTML = '<p id="divTexto">Anjo da Morte\n\n' +
                 'Você receberá uma entrega na sua casa hoje, as uma\nhora da manhã,' +
@@ -385,8 +381,7 @@ function escolher(option) {
 
         case 14: // NÃO PEGAR O PACOTE
 
-            divAlt.classList.remove('divAlt3');
-            divAlt.classList.add('divAlt2');
+            estiloDivAlt(2);
             imagemOpac(1);
             novaLegenda('Eu deveria chamar a polícia, ou talvez só dormir.', 40);
             divEscolhas.innerHTML = '<button onclick="escolher(15);">Ligar Para 190</button>' +
@@ -436,10 +431,7 @@ function escolher(option) {
 
             transicao();
             divAlt.style.opacity = 1;
-            divAlt.classList.remove('divAlt1');
-            divAlt.classList.remove('divAlt2');
-            divAlt.classList.remove('divAlt3');
-            divAlt.classList.add('divAlt4');
+            fimDeJogo();
             divAlt.innerHTML = '<audio autoplay hidden> ' +
                 '<source src="../audio/morte.mp3" type="audio/mp3"></audio>' +
                 '<h2>FIM DE JOGO</h2>';
