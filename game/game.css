@@ -2,7 +2,7 @@ body {
     background-color: #000000;
     display: inline-block;
     color: #aaa;
-    font-family: 'VT323', monospace;
+    font-family: "VT323", monospace;
 }
 
 section {
@@ -39,8 +39,7 @@ button {
     cursor: pointer;
 }
 
-
-div#divGame{
+div#divGame {
     display: grid;
     justify-items: center;
     align-items: center;
@@ -53,7 +52,7 @@ button:hover {
     color: #9500ff;
 }
 
-#divAlt{
+#divAlt {
     opacity: 0;
     grid-area: 1 / 1;
     z-index: 1;
@@ -64,7 +63,7 @@ button:hover {
     color: #fff;
 }
 
-p#divTexto{
+p#divTexto {
     color: white;
     border-radius: 5px;
 }
@@ -73,7 +72,6 @@ p#divTexto{
     height: 0;
     align-items: center;
 }
-
 
 .divAlt1 p#divTexto {
     padding: 20px;
@@ -84,7 +82,6 @@ p#divTexto{
 .divAlt2 {
     background-color: #aa0202;
     box-shadow: 0 0 4px 4px #aa0202;
-
 }
 
 .divAlt3 {
@@ -101,7 +98,6 @@ p#divTexto{
     padding: 0;
 }
 
-
 .divAlt3 img {
     background-color: #ffffff;
     border-radius: 100%;
@@ -116,7 +112,7 @@ p#divTexto{
     padding: 10px;
     font-size: 4em;
     border-radius: 20px;
-    text-shadow: 0px 0px 40px #ffffff
+    text-shadow: 0px 0px 40px #ffffff;
 }
 
 p#divTexto {
@@ -134,7 +130,6 @@ div#escolhas {
     gap: 50px;
 }
 
-
 #divAlt {
     transition: opacity 1s 0.5s;
 }
@@ -143,18 +138,13 @@ div p#legenda {
     color: #b86dff;
     margin-top: 16px;
     text-align: center;
-    overflow: hidden; 
+    overflow: hidden;
     font-size: 26px;
 }
 
-div#divLegenda{
+div#divLegenda {
     width: 60vw;
 }
-
-.audio-container {
-    text-align: right;
-}
-
 
 span.material-symbols-outlined {
     font-size: 36px;
@@ -174,4 +164,145 @@ a {
 
 #volume {
     display: inline-block;
+}
+
+@media only screen and (max-width: 880px) {
+    body {
+        background-color: #000000;
+        display: inline-block;
+        color: #aaa;
+        font-family: "VT323", monospace;
+    }
+
+    section {
+        display: flex;
+        max-width: 80vw;
+        margin-left: 20px;
+        margin-top: 15px;
+    }
+
+    #img1,
+    #img2 {
+        /* position: fixed; */
+        width: 60vw;
+        height: 84vh;
+        opacity: 0.2;
+        grid-area: 1 / 1;
+    }
+
+    #img2 {
+        box-shadow: 0px 2px 15px 2px #ffffff;
+        opacity: 0;
+    }
+
+    button {
+        font-size: 2px;
+        white-space: nowrap;
+        padding: 10px;
+        border: 3px solid #62228f;
+        border-radius: 10px;
+        font-size: 18px;
+        transition-duration: 0.5s;
+        transition-delay: 150ms;
+        background-color: #3e3e3e;
+        cursor: pointer;
+    }
+
+    div#divGame {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+    }
+
+    button:hover {
+        box-shadow: 0 0 20px 5px #62228f;
+        transition-delay: 0s;
+        background-color: #bcbcbc;
+        color: #9500ff;
+    }
+
+    #divAlt {
+        opacity: 0;
+        grid-area: 1 / 1;
+        z-index: 1;
+        white-space: pre;
+        margin-bottom: 25vh;
+        border-radius: 5px;
+        align-items: center;
+        color: #fff;
+    }
+
+    p#divTexto {
+        color: white;
+        border-radius: 5px;
+    }
+
+    .divAlt1 {
+        height: 0;
+        align-items: center;
+    }
+
+    .divAlt1 p#divTexto {
+        padding: 12px;
+        background-color: #5902aa;
+        box-shadow: 0 0 4px 4px #5902aa;
+    }
+
+    .divAlt2 {
+        background-color: #aa0202;
+        box-shadow: 0 0 4px 4px #aa0202;
+        margin-right: 20px;
+    }
+
+    .divAlt3 {
+        display: grid;
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+        padding: 20px;
+        background-color: #5902aa;
+        box-shadow: 0 0 4px 4px #5902aa;
+    }
+
+    .divAlt3 p#divTexto {
+        padding: 0;
+    }
+
+    .divAlt3 img {
+        background-color: #ffffff;
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+    }
+
+    p#divTexto {
+        font-size: 12px;
+    }
+
+    div#escolhas {
+        opacity: 0;
+        margin-left: 3vw;
+        transition: opacity 750ms;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    #divAlt {
+        transition: opacity 1s 0.5s;
+    }
+
+    div p#legenda {
+        color: #b86dff;
+        margin-top: 16px;
+        text-align: center;
+        overflow: hidden;
+        font-size: 26px;
+    }
+
+    div#divLegenda {
+        width: 60vw;
+    }
 }
